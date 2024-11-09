@@ -8,17 +8,16 @@ import { useEffect, useState } from "react";
 import { searchNews, type NewsResult } from "@/lib/search-service";
 import { Button } from "@/components/ui/button";
 
-type Source = {
-  name?: string;
-};
-
 interface NewsResult {
   url: string;
   title: string;
   description?: string;
   publishedAt: string;
   urlToImage?: string;
-  source?: Source | string;
+  source?: {
+    id?: string;
+    name?: string;
+  };
 }
 
 export default function NewsSearchPage() {
@@ -87,11 +86,7 @@ export default function NewsSearchPage() {
                     )}
                     <div>
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
-                        <span>
-                          {typeof result.source === "object" && result.source?.name
-                            ? result.source.name
-                            : "Unknown Source"}
-                        </span>
+                        <span>{result.source?.name || "Unknown Source"}</span>
                         <span>•</span>
                         <span>{new Date(result.publishedAt).toLocaleDateString()}</span>
                       </div>
