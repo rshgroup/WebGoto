@@ -74,7 +74,11 @@ export default function NewsSearchPage() {
                     )}
                     <div>
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
-                        <span>{result.source.name || "Unknown Source"}</span> {/* Ensure this uses 'name' or a default */}
+                        <span>
+                          {typeof result.source === "object" && result.source?.name
+                            ? result.source.name
+                            : result.source || "Unknown Source"}
+                        </span>
                         <span>•</span>
                         <span>{new Date(result.publishedAt).toLocaleDateString()}</span>
                       </div>
